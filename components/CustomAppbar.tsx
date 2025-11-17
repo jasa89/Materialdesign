@@ -1,20 +1,28 @@
-
 import React from 'react';
 import { Appbar } from 'react-native-paper';
-import { NativeStackHeaderProps } from '@react-navigation/native-stack';
+import type { NativeStackHeaderProps } from '@react-navigation/native-stack';
 
-const CustomAppbar: React.FC<NativeStackHeaderProps> = ({ navigation, back, options }) => {
+const CustomAppbar = ({ navigation, back, options, route }: NativeStackHeaderProps) => {
+
   return (
     <Appbar.Header mode="center-aligned" elevated>
       
-      {/* Show back button only if there's a previous screen */}
-      {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
+      {/* Left arrow (back) only if there is a previous screen */}
+      {back ? (
+        <Appbar.BackAction onPress={() => navigation.goBack()} />
+      ) : null}
 
-      {/* Screen title comes from Stack.Screen options */}
-      <Appbar.Content title={options.title} />
+      {/* Title */}
+      <Appbar.Content title={options.title}
+      style= {{alignItems:'flex-start'}}   />
 
-      {/* Add header actions here if needed */}
-      {/* <Appbar.Action icon="dots-vertical" onPress={() => {}} /> */}
+      {/* Right arrow only on HomeScreen */}
+      {route.name === 'Home' ? (
+        <Appbar.Action
+          icon="arrow-right"
+          onPress={() => navigation.navigate('SecondScreen')}
+        />
+      ) : null}
 
     </Appbar.Header>
   );

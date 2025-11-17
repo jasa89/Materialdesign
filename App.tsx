@@ -3,14 +3,13 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet } from 'react-native';
-
 import CustomAppbar from './components/CustomAppbar';
 import HomeScreen from './screens/HomeScreen';
 import SecondScreen from './screens/SecondScreen';
 
 export type RootStackParamList = {
   Home: undefined;
-  Details: undefined;
+  SecondScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -20,11 +19,13 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home"
         screenOptions={{
-          header: (props) => <CustomAppbar {...props} />, 
+          header: CustomAppbar,
+          // header: (props) => <CustomAppbar {...props} />, 
+          
         }}
       >
-        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }}  />
-        <Stack.Screen name="Details" component={SecondScreen}  options={{ title: 'Second Screen' }}/>
+        <Stack.Screen  name="Home" component={HomeScreen} options={{ title: 'MD Nav Demo' }}  />
+        <Stack.Screen name="SecondScreen" component={SecondScreen}  options={{ title: 'MD Nav Demo' }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
